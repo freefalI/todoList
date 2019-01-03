@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Task;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class ProjectTasksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -69,7 +69,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update([
+            'completed'=>$request->has('completed')
+        ]);
+        // dd($task);
+        return back();
     }
 
     /**

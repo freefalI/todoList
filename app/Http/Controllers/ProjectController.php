@@ -16,7 +16,7 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
         $projectsCount=count($projects);
-        return view('projects.index',compact('projects'))->with(['projectsCount'=>$projectsCount]);
+        return view('projects.index',compact('projects','projectsCount'));
     }
 
     /**
@@ -26,9 +26,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
         return view('projects.create');
-        
     }
 
     /**
@@ -45,7 +43,6 @@ class ProjectController extends Controller
             ]);
 
         Project::create($validatedData);
-
         return redirect('projects')->with('flash_message', 'Project added!');
     }
 
@@ -99,6 +96,5 @@ class ProjectController extends Controller
     {
         $project->delete();
         return redirect('projects')->with('flash_message', 'Project deleted!');
-
     }
 }

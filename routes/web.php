@@ -14,3 +14,4 @@
 // Route::get('/projects', 'ProjectController@index');
 // Route::get('/project/{id}/tasks', 'ProjectController@index');
 Route::resource('projects', 'ProjectController');
+Route::patch('/tasks/{task}', 'ProjectTasksController@update');

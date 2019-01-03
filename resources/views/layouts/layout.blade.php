@@ -8,10 +8,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css"/>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- Styles -->
         <style>
-
+          .is-complete{
+            text-decoration:line-through;
+          }
         </style>
     </head>
     <body>
@@ -64,10 +67,10 @@
 
 
         <div class="container is-fluid">
-        @include('layouts.notifications')
-            <!-- <div class="notification">
-            </div> -->
-                @yield('content')
+          
+            @yield('content')
+            <br>
+            @include('layouts.notifications')
         </div>
     
     </body>
