@@ -15,7 +15,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('projects.index',compact('projects'));
+        $projectsCount=count($projects);
+        return view('projects.index',compact('projects'))->with(['projectsCount'=>$projectsCount]);
     }
 
     /**
@@ -25,6 +26,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+
         return view('projects.create');
         
     }
@@ -37,9 +39,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
+        $validatedData = $request->validate([
+            'name'=>'required',
+            'description'=>'required'
+            ]);
 
-        Project::create($requestData);
+        Project::create($validatedData);
 
         return redirect('projects')->with('flash_message', 'Project added!');
     }
@@ -75,9 +80,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $requestData = $request->all();
+        $validatedData = $request->validate([
+            'name'=>'required',
+            'description'=>'required'
+            ]);
         
-        $project->update($requestData);
+        $project->update($validatedData);
         return redirect('projects')->with('flash_message', 'Project updated!');
     }
 
