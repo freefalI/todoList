@@ -19,6 +19,8 @@
         </form>
     </p>
 </div>
+
+<!-- task list -->
 @if ($project->tasks()->count())
     <div class="panel"> 
         <p class="panel-heading">
@@ -38,4 +40,23 @@
         @endforeach
     </div>
 @endif
+
+
+<!-- add task -->
+<form action="/projects/{{$project->id}}/tasks" method='post'>
+    @csrf
+ 
+    <div class="field">
+        <label class="label">New task</label>
+        <p class="control">
+            <input type="text" name="description" id="" class = "input {{$errors->has('description') ? 'is-danger' : ''}}" value="">
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button type="submit" class="button is-success">Add</button>
+        </p>
+    </div>
+</form>
+
 @endsection

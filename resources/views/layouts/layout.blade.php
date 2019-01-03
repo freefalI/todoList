@@ -72,6 +72,7 @@
             <br>
             @include('layouts.notifications')
         </div>
-    
+        <br>
+        <br>
     </body>
 </html>

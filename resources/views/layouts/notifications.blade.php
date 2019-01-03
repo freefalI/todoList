@@ -1,6 +1,6 @@
 
 @if (session("flash_message"))
-    <div class="container-fluid notification  w-100" role="alert">
+    <div class="container-fluid notification  w-100 is-info" role="alert">
         {{session("flash_message")}}
     </div>
 @endif
