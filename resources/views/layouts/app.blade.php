@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"/>
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"/> -->
+        <link rel="stylesheet" href="{{asset('bulma.css')}}"/>
        
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -23,10 +24,13 @@
 
         <nav class="navbar">
             <div class="navbar-start">
-                <a class="navbar-item">
+                <a class="navbar-item" href="/">
                     <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
                 </a>
-                <a class="navbar-item is-active " href='/projects'>
+                <a class="navbar-item {{ request()->is('/') ? 'is-tab is-active' : '' }}" href='/'>
+                    Main Page
+                </a>   
+                <a class="navbar-item {{ request()->is('projects') ? 'is-tab is-active' : '' }}" href='/projects'>
                     Projects
                 </a>
                 <a class="navbar-item">

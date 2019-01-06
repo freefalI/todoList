@@ -14,7 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::where('owner_id',auth()->id())->get();
         $projectsCount=count($projects);
         return view('projects.index',compact('projects','projectsCount'));
     }
@@ -42,7 +42,7 @@ class ProjectController extends Controller
             'description'=>'required'
             ]);
 
-        Project::create($validatedData);
+        Project::create($validatedData+['owner_id'=>auth()->id()]);
         return redirect('projects')->with('flash_message', 'Project added!');
     }
 
@@ -54,6 +54,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $this->authorize('access',$project);
         return view('projects.show',compact('project'));
     }
 
@@ -65,6 +66,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize('access',$project);
+
         return view('projects.edit',compact('project'));
     }
 
@@ -77,6 +80,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('access',$project);
+
         $validatedData = $request->validate([
             'name'=>'required',
             'description'=>'required'

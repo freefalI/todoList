@@ -38,7 +38,7 @@ class LoginController extends Controller
     }
 
     protected function loggedOut() {
-        return redirect('/projects');
+        return redirect('/');
     }
 
 }

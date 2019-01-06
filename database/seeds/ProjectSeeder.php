@@ -12,9 +12,9 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('projects')->insert([
-            'name' => str_random(10),
-            'description' => 'fasdfasfasf',
-        ]);
+        // DB::table('projects')->insert([
+        //     'name' => str_random(10),
+        //     'description' => 'fasdfasfasf',
+        // ]);
     }
 }
