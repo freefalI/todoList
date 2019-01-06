@@ -11,10 +11,11 @@ class ProjectController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function index()
     {
-        $projects = Project::where('owner_id',auth()->id())->get();
+        // $projects = Project::where('owner_id',auth()->id())->get();
+        $projects = auth()->user()->projects;
         $projectsCount=count($projects);
         return view('projects.index',compact('projects','projectsCount'));
     }
@@ -37,12 +38,9 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name'=>'required',
-            'description'=>'required'
-            ]);
-
-        Project::create($validatedData+['owner_id'=>auth()->id()]);
+        $validatedData = $this->validateProject();
+        $validatedData['owner_id'] = auth()->id();
+        Project::create($validatedData);
         return redirect('projects')->with('flash_message', 'Project added!');
     }
 
@@ -82,10 +80,7 @@ class ProjectController extends Controller
     {
         $this->authorize('access',$project);
 
-        $validatedData = $request->validate([
-            'name'=>'required',
-            'description'=>'required'
-            ]);
+        $validatedData = $this->validateProject();
         
         $project->update($validatedData);
         return redirect('projects')->with('flash_message', 'Project updated!');
@@ -101,5 +96,13 @@ class ProjectController extends Controller
     {
         $project->delete();
         return redirect('projects')->with('flash_message', 'Project deleted!');
+    }
+
+    public function validateProject()
+    {
+        return request()->validate([
+            'name'=>'required',
+            'description'=>'required|min:3'
+            ]);
     }
 }
