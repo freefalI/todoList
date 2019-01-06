@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="title">
-Hello, we are super company!
+Hello, this is main page!
 Please, register or login
 </h1>
 @endsection
