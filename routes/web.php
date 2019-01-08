@@ -15,6 +15,7 @@
 // Route::get('/project/{id}/tasks', 'ProjectController@index');
 Route::get('/','MainController@index');
 Route::resource('projects', 'ProjectController')->middleware('auth');
+
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 

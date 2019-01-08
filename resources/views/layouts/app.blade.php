@@ -3,12 +3,49 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}"/>
+        <!-- JS-->
+        <script src="{{asset('js/app.js')}}"></script>
+        <script>
+
+        $(()=>{  
+            $.ajaxSetup({
+                headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
+            });
+            
+            $('#ajaxbtn').click(
+                function () {
+                    $.get("/ajax_test", function (data, status) {
+                            let obj = JSON.parse(data);
+                            console.log(obj);
+                            alert("Data: " + data + "\nStatus: " + status);
+                        });
+                });            
+            
+            $('.task-status').change(
+                function () {
+                    var id=$(this).data('id');
+                    $.post( "/tasks/"+id,{
+                        _method: 'PATCH'
+                    },
+                        function (data, status) {
+                            if( $('.task-status').parent().hasClass('is-complete')){
+                                $('.task-status').parent().removeClass('is-complete');
+                            }
+                            else{
+                                $('.task-status').parent().addClass('is-complete');
+                            }
+                        });
+                });
+
+        });
+        
+        </script>
         <!-- Fonts -->
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{asset('css/app.css')}}"/>
         <style>
           .is-complete{
             text-decoration:line-through;

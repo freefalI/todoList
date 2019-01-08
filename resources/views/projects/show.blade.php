@@ -33,7 +33,7 @@
             @csrf
             @method('PATCH')
                 <label class="panel-block {{$task->completed ? 'is-complete' : ''}}" >
-                    <input type="checkbox" name='completed' onChange = "this.form.submit()" {{$task->completed ? 'checked' : ''}}>
+                    <input data-id='{{$task->id}}' class='task-status' type="checkbox" name='completed'  {{$task->completed ? 'checked' : ''}}>
                     {{$task->description}}
                 </label>   
             </form>
