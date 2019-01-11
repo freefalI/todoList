@@ -84,6 +84,7 @@ class ProjectTasksController extends Controller
      */
     public function destroy(Task $task)
     {
+
         $task->delete();
     }
 }

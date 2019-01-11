@@ -86,6 +86,13 @@ class ProjectController extends Controller
         return redirect('projects')->with('flash_message', 'Project updated!');
     }
 
+
+    public function deleteAllTasks(Project $project)
+    {
+       $project->tasks()->delete();
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *

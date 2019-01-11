@@ -44,7 +44,7 @@ $(()=>{
             },
                 function (data, status) {
                     let task = JSON.parse(data);
-                    $('#task-list').append(`
+                    $('#task-list-body').append(`
                     <form class='new-task-form' action="/tasks/${task.id}" method='post' style="display:none;"> 
                     </form>
                     `);
@@ -76,5 +76,19 @@ $(()=>{
                 });
         });
 
+
+        $(document).on('click','.delete-all-tasks-button', function(){
+            var project_id=$('#project-id').text();
+            $.post( "/project/"+project_id+'/clear',{
+                _method: 'PATCH'
+            },
+                (data, status) =>{
+                    $('#task-list-body').slideToggle(300,()=>{
+                        $('#task-list-body').children().remove();
+                        $('#task-list-body').show();
+                    });
+                });
+        });
+        
 
 });

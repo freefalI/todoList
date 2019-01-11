@@ -15,9 +15,14 @@
         <form action="/projects/{{$project->id}}" method='post'>
             @method('DELETE')
             @csrf
-            <button type="submit" class="button is-danger">Delete</button>
+            <button type="submit" class="button is-danger">Delete project</button>
         </form>
     </p>
+    <p class="control">
+        <div class='delete-all-tasks-button button is-danger is-pulled-right '  data-id=''>Delete all tasks</div>
+    </p>
+
+
 </div>
 
 <!-- task list -->
@@ -25,22 +30,23 @@
     <p class="panel-heading">
         <label class="label">Tasks</label>
     </p>
-    
-    @if ($project->tasks()->count())
-        @foreach ($project->tasks as $task)
-            <form action="/tasks/{{$task->id}}" method='post'> 
-                @csrf
-                @method('PATCH')
-            
-                <div class='delete-task-button button is-danger is-pulled-right '  data-id='{{$task->id}}'>Delete</div>
-                <label class="panel-block   {{$task->completed ? 'is-complete' : ''}}" >
-                    <input id='task-{{$task->id}}'  data-id='{{$task->id}}' class='task-status' 
-                    type="checkbox" name='completed'  {{$task->completed ? 'checked' : ''}}>
-                    {{$task->description}}
-                </label>    
-            </form>
-        @endforeach
-    @endif
+    <div id='task-list-body'>
+        @if ($project->tasks()->count())
+            @foreach ($project->tasks as $task)
+                <form action="/tasks/{{$task->id}}" method='post'> 
+                    @csrf
+                    @method('PATCH')
+                
+                    <div class='delete-task-button button is-danger is-pulled-right '  data-id='{{$task->id}}'>Delete</div>
+                    <label class="panel-block   {{$task->completed ? 'is-complete' : ''}}" >
+                        <input id='task-{{$task->id}}'  data-id='{{$task->id}}' class='task-status' 
+                        type="checkbox" name='completed'  {{$task->completed ? 'checked' : ''}}>
+                        {{$task->description}}
+                    </label>    
+                </form>
+            @endforeach
+        @endif
+    </div>
 </div>
 
 
