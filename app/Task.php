@@ -12,7 +12,7 @@ class Task extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function switch()
+    public function toggle()
     {
         $this->isCompleted() ?  $this->incomplete() : $this->complete();
     }

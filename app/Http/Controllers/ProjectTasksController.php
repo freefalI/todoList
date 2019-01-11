@@ -39,10 +39,7 @@ class ProjectTasksController extends Controller
         $validatedData = $request->validate([
             'description'=>'required'
         ]); 
-        $project->addTask($validatedData['description']);
-      
-        return back()->with('flash_message', 'Task added!'); 
-
+        return json_encode($project->addTask($validatedData['description']));
     }
 
     /**
@@ -76,7 +73,7 @@ class ProjectTasksController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $task->switch();
+        $task->toggle();
     }
 
     /**
@@ -87,6 +84,6 @@ class ProjectTasksController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
     }
 }

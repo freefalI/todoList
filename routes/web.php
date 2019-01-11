@@ -18,6 +18,7 @@ Route::resource('projects', 'ProjectController')->middleware('auth');
 
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
+Route::delete('/tasks/{task}', 'ProjectTasksController@destroy');
 
 Auth::routes();
 

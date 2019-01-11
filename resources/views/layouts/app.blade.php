@@ -7,49 +7,18 @@
         <title>Laravel</title>
         <!-- JS-->
         <script src="{{asset('js/app.js')}}"></script>
-        <script>
-
-        $(()=>{  
-            $.ajaxSetup({
-                headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
-            });
-            
-            $('#ajaxbtn').click(
-                function () {
-                    $.get("/ajax_test", function (data, status) {
-                            let obj = JSON.parse(data);
-                            console.log(obj);
-                            alert("Data: " + data + "\nStatus: " + status);
-                        });
-                });            
-            
-            $('.task-status').change(
-                function () {
-                    var id=$(this).data('id');
-                    $.post( "/tasks/"+id,{
-                        _method: 'PATCH'
-                    },
-                        function (data, status) {
-                            if( $('.task-status').parent().hasClass('is-complete')){
-                                $('.task-status').parent().removeClass('is-complete');
-                            }
-                            else{
-                                $('.task-status').parent().addClass('is-complete');
-                            }
-                        });
-                });
-
-        });
-        
+        <script src="{{asset('js/myscript.js')}}"></script>
+        <script>        
         </script>
         <!-- Fonts -->
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('css/app.css')}}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-          .is-complete{
+        .is-complete{
             text-decoration:line-through;
-          }
+        }
         </style>
     </head>
     <body>
@@ -58,7 +27,9 @@
         <nav class="navbar">
             <div class="navbar-start">
                 <a class="navbar-item" href="/">
-                    <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
+                    <!-- <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo"> -->
+                    <img src="http://cit336.malorieaaron.com/public/images/to_do_list_logo.png" alt="Bulma logo">
+                    
                 </a>
                 <a class="navbar-item {{ request()->is('/') ? 'is-tab is-active' : '' }}" href='/'>
                     Main Page
