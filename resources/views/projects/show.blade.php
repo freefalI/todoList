@@ -39,21 +39,26 @@
             <p class="control">
               <input class="input" id='search-tasks-input' type="text" placeholder="Find a task">
             </p>
-            <p class="control">
+            <!-- <p class="control">
               <button class="button">
                 Search
               </button>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
     
       <!-- Right side -->
-      <div class="level-right">
-        <p class="level-item"><strong>All</strong></p>
-        <p class="level-item"><a>Completed</a></p>
-        <p class="level-item"><a>Uncompleted</a></p>
-      </div>
+    <div id='search-tabs' class="level-right tabs is-toggle">
+        <ul>
+            <li class="is-active" data-id='2'><a>All</a></li>
+            <li data-id='1'><a>Completed</a></li>
+            <li data-id='0'><a>Uncompleted</a></li>
+        </ul>
+       
+    </div>
+
+
     </nav>
 
 
@@ -65,10 +70,7 @@
     <div id='task-list-body'>
         @if ($project->tasks()->count())
             @foreach ($project->tasks as $task)
-                <form action="/tasks/{{$task->id}}" method='post'> 
-                    @csrf
-                    @method('PATCH')
-                
+                <form>
                     <div class='delete-task-button button is-danger is-pulled-right '  data-id='{{$task->id}}'>Delete</div>
                     <label class="panel-block   {{$task->completed ? 'is-complete' : ''}}" >
                         <input id='task-{{$task->id}}'  data-id='{{$task->id}}' class='task-status' 
@@ -83,9 +85,7 @@
 
 
 <!-- add task -->
-<form action="/projects/{{$project->id}}/tasks" method='post'>
-    @csrf
- 
+<div id='add-task-block'>
     <div class="field">
         <label class="label">New task</label>
         <p class="control">
@@ -100,7 +100,6 @@
             <div id='new-task-button'  class="button is-success">Add</div>
         </p>
     </div>
-
-</form>
+</div>
 
 @endsection

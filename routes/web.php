@@ -14,12 +14,13 @@
 // Route::get('/projects', 'ProjectController@index');
 // Route::get('/project/{id}/tasks', 'ProjectController@index');
 Route::get('/','MainController@index');
-Route::resource('projects', 'ProjectController')->middleware('auth');
-Route::patch('project/{project}/clear', 'ProjectController@deleteAllTasks');
 
-Route::patch('/tasks/{task}', 'ProjectTasksController@update');
-Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
-Route::delete('/tasks/{task}', 'ProjectTasksController@destroy');
+Route::patch('project/{project}/clear', 'ProjectController@deleteAllTasks');
+Route::resource('projects', 'ProjectController')->middleware('auth');
+
+Route::patch('/tasks/{task}', 'TaskController@update');
+Route::post('/projects/{project}/tasks', 'TaskController@store');
+Route::delete('/tasks/{task}', 'TaskController@destroy');
 
 Auth::routes();
 
