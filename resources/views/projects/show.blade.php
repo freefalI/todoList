@@ -103,3 +103,7 @@
 </div>
 
 @endsection
+
+@section('page_specific_scripts')
+    <script src="{{asset('js/tasks_page.js')}}"></script>
+@endsection

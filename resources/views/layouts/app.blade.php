@@ -7,7 +7,9 @@
         <title>Laravel</title>
         <!-- JS-->
         <script src="{{asset('js/app.js')}}"></script>
-        <script src="{{asset('js/myscript.js')}}"></script>
+
+        @yield('page_specific_scripts')
+
         <script>        
         </script>
         <!-- Fonts -->
