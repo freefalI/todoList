@@ -53,7 +53,10 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $this->authorize('access',$project);
-        return view('projects.show',compact('project'));
+
+        $tasks = $project->tasks;
+        $tasksCount = count($tasks);
+        return view('projects.show',compact('project','tasksCount'));
     }
 
     /**

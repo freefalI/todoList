@@ -25,6 +25,38 @@
 
 </div>
 
+<!-- search panel -->
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <p class="subtitle is-5" id='tasks-count'>
+            <strong>{{$tasksCount}}</strong> tasks
+          </p>
+        </div>
+        <div class="level-item">
+          <div class="field has-addons">
+            <p class="control">
+              <input class="input" id='search-tasks-input' type="text" placeholder="Find a task">
+            </p>
+            <p class="control">
+              <button class="button">
+                Search
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Right side -->
+      <div class="level-right">
+        <p class="level-item"><strong>All</strong></p>
+        <p class="level-item"><a>Completed</a></p>
+        <p class="level-item"><a>Uncompleted</a></p>
+      </div>
+    </nav>
+
+
 <!-- task list -->
 <div class="panel" id='task-list'> 
     <p class="panel-heading">
@@ -41,7 +73,7 @@
                     <label class="panel-block   {{$task->completed ? 'is-complete' : ''}}" >
                         <input id='task-{{$task->id}}'  data-id='{{$task->id}}' class='task-status' 
                         type="checkbox" name='completed'  {{$task->completed ? 'checked' : ''}}>
-                        {{$task->description}}
+                        <p class='task-description'>{{$task->description}}</p>
                     </label>    
                 </form>
             @endforeach

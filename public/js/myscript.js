@@ -3,6 +3,31 @@ $(()=>{
         headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
     });
     
+
+    setInterval(function() {
+        $('#tasks-count strong').text($('#task-list-body form:visible').length);
+
+    }, 500);
+
+    setInterval(function() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = $('#search-tasks-input');
+        filter = input.val().toUpperCase();
+        items = $('#task-list-body').children();
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < items.length; i++) {
+            b=$ (items[i]).find(".task-description");
+            txtValue = b.text();
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                $(items[i]).show();
+            } else {
+                $(items[i]).hide();
+            }
+        }
+    }, 500);
+    
+
+
     // $('#ajaxbtn').click(
     //     function () {
     //         $.get("/ajax_test", function (data, status) {
@@ -90,5 +115,30 @@ $(()=>{
                 });
         });
         
+
+
+    // function myFunction() {
+        // Declare variables
+        /*
+        var input, filter, ul, li, a, i, txtValue;
+        input = $('#search-tasks-input');
+        filter = input.value.toUpperCase();
+        li = $('#task-list-body').children();
+        
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+            } else {
+            li[i].style.display = "none";
+            }
+        }
+        */
+    // }
+
+
+
 
 });
