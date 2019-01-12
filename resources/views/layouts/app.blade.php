@@ -21,6 +21,10 @@
         .is-complete{
             text-decoration:line-through;
         }
+        .divider{
+            margin: -10px 0 0 0;
+            background-color: #3273dc;
+        }
         </style>
     </head>
     <body>

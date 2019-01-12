@@ -36,6 +36,7 @@ class TaskController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        $project->touch();
         $validatedData = $request->validate([
             'description'=>'required'
         ]); 
@@ -71,8 +72,10 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update( Task $task)
     {
+        $project=$task->project;
+        $project->touch();
         $task->toggle();
     }
 
@@ -84,7 +87,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-
+        $project=$task->project;
+        $project->touch();
         $task->delete();
     }
 }

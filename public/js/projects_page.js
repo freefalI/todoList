@@ -16,7 +16,7 @@ $(() => {
         var items = $('#projects-list-body').children();
 
         for (i = 0; i < items.length; i++) {
-            el = $(items[i]).find(".project-name");
+            el = $(items[i]).find(".project-name .search-data");
             txtValue = el.text();
             if (txtValue.toUpperCase().indexOf(filter) > -1)
             {

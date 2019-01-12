@@ -15,7 +15,11 @@ class ProjectController extends Controller
     public function index()
     {
         // $projects = Project::where('owner_id',auth()->id())->get();
-        $projects = auth()->user()->projects;
+        $projects = auth()->user()->projects->sortByDesc('updated_at');
+        foreach ($projects as $key => $project) {
+            $project->taskCount=$project->tasks()->count();
+            $project->completedTaskCount=$project->tasks()->where('completed',1)->count();
+        }
         $projectsCount=count($projects);
         return view('projects.index',compact('projects','projectsCount'));
     }
