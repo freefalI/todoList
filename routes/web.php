@@ -11,16 +11,24 @@
 |
 */
 
-// Route::get('/projects', 'ProjectController@index');
-// Route::get('/project/{id}/tasks', 'ProjectController@index');
+
 Route::get('/','MainController@index');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('projects', 'ProjectController');
+    
+    Route::group(['middleware' => ['can:access,project']], function () {
+        Route::patch('project/{project}/clear', 'ProjectController@deleteAllTasks');
+        Route::post('/projects/{project}/tasks', 'TaskController@store');
 
-Route::patch('project/{project}/clear', 'ProjectController@deleteAllTasks');
-Route::resource('projects', 'ProjectController')->middleware('auth');
+    });
+    Route::group(['middleware' => ['can:access,task']], function () {
+        Route::patch('/tasks/{task}', 'TaskController@update');
+        Route::delete('/tasks/{task}', 'TaskController@destroy');
+    });
 
-Route::patch('/tasks/{task}', 'TaskController@update');
-Route::post('/projects/{project}/tasks', 'TaskController@store');
-Route::delete('/tasks/{task}', 'TaskController@destroy');
+
+});
+
 
 Auth::routes();
 

@@ -20,9 +20,12 @@ class Project extends Model
     public function addTask($description)
     {
         return $this->tasks()->create(compact('description'));
-        // return Task::create([
-        //     'project_id'=>$this->id,
-        //     'description'=>$description
-        // ]);
+    }
+
+    public function getTaskCountAttribute($value){
+        return $this->tasks()->count();
+    }
+    public function getCompletedTaskCountAttribute($value){
+        return $this->tasks()->where('completed',1)->count();
     }
 }

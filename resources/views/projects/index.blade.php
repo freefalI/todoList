@@ -7,7 +7,7 @@
       <div class="level-left">
         <div class="level-item">
           <p class="subtitle is-5" id='projects-count'>
-            <strong>{{$projectsCount}}</strong> projects
+            <strong>{{count($projects)}} </strong> projects
           </p>
         </div>
         <div class="level-item">
@@ -55,7 +55,7 @@
     Projects
   </p>
 
-<div class="columns subtitle is-5"  >
+{{-- <div class="columns subtitle is-5"  >
     <div class="column">
          Name
     </div>
@@ -65,8 +65,8 @@
     <div class="column">
         Status
     </div>
-</div>
-<hr class='divider'>
+</div> --}}
+{{-- <hr class='divider'> --}}
 
   <ul class="menu-list" id='projects-list-body'>
     @foreach ( $projects as $project)

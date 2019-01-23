@@ -40,7 +40,8 @@ class TaskController extends Controller
         $validatedData = $request->validate([
             'description'=>'required'
         ]); 
-        return json_encode($project->addTask($validatedData['description']));
+        $newTask = $project->addTask($validatedData['description']);
+        return json_encode($newTask);
     }
 
     /**

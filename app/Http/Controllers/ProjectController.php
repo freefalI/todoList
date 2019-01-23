@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Project;
+use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProject;
 
 class ProjectController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('can:access,project')->except(['index', 'create', 'store']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,14 +20,8 @@ class ProjectController extends Controller
      */ 
     public function index()
     {
-        // $projects = Project::where('owner_id',auth()->id())->get();
-        $projects = auth()->user()->projects->sortByDesc('updated_at');
-        foreach ($projects as $key => $project) {
-            $project->taskCount=$project->tasks()->count();
-            $project->completedTaskCount=$project->tasks()->where('completed',1)->count();
-        }
-        $projectsCount=count($projects);
-        return view('projects.index',compact('projects','projectsCount'));
+        $projects = auth()->user()->projects()->latest('updated_at')->get();
+        return view('projects.index',compact('projects'));
     }
 
     /**
@@ -40,11 +40,10 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UpdateProject $request)
     {
-        $validatedData = $this->validateProject();
-        $validatedData['owner_id'] = auth()->id();
-        Project::create($validatedData);
+        $validatedData = $request->validated();
+        auth()->user()->addProject($validatedData);
         return redirect('projects')->with('flash_message', 'Project added!');
     }
 
@@ -56,11 +55,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $this->authorize('access',$project);
-
-        $tasks = $project->tasks;
-        $tasksCount = count($tasks);
-        return view('projects.show',compact('project','tasksCount'));
+        // $this->authorize('access',$project);
+        return view('projects.show',compact('project'));
     }
 
     /**
@@ -71,8 +67,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $this->authorize('access',$project);
-
+        // $this->authorize('access',$project);
         return view('projects.edit',compact('project'));
     }
 
@@ -83,12 +78,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProject $request, Project $project)
     {
-        $this->authorize('access',$project);
+        // $this->authorize('access',$project);
+        $validatedData = $request->validated();
 
-        $validatedData = $this->validateProject();
-        
         $project->update($validatedData);
         return redirect('projects')->with('flash_message', 'Project updated!');
     }
@@ -96,7 +90,7 @@ class ProjectController extends Controller
 
     public function deleteAllTasks(Project $project)
     {
-       $project->tasks()->delete();
+        $project->tasks()->delete();
     }
 
 
@@ -108,15 +102,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        // $this->authorize('access',$project);
+        // $project->tasks->delete();
         $project->delete();
         return redirect('projects')->with('flash_message', 'Project deleted!');
     }
 
-    public function validateProject()
-    {
-        return request()->validate([
-            'name'=>'required',
-            'description'=>'required|min:3'
-            ]);
-    }
 }

@@ -3,19 +3,16 @@
 namespace App\Policies;
 
 use App\User;
-use App\Project;
+use App\Task;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProjectPolicy
+class TaskPolicy
 {
     use HandlesAuthorization;
 
-    public function access(User $user, Project $project=null,Task $task=null)
+    public function access(User $user,Task $task)
     {
-        if (!$project){
-           $project = $task->project;
-        }
-        return $user->id === $project->owner_id;
+        return $user->id === $task->project->owner_id;
     }
     /**
      * Determine whether the user can view the project.

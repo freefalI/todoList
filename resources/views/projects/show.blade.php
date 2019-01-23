@@ -31,7 +31,7 @@
       <div class="level-left">
         <div class="level-item">
           <p class="subtitle is-5" id='tasks-count'>
-            <strong>{{$tasksCount}}</strong> tasks
+            <strong>{{$project->tasks()->count() }}</strong> tasks 
           </p>
         </div>
         <div class="level-item">
